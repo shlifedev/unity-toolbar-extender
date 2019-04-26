@@ -2,14 +2,16 @@
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
-using UnityEngine.Experimental.UIElements;
+using UnityEngine.UIElements;
 
 namespace UnityToolbarExtender
 {
 	public static class ToolbarCallback
 	{
+        //어셈블리 강제로 가져옴
 		static Type m_toolbarType = typeof(Editor).Assembly.GetType("UnityEditor.Toolbar");
 		static Type m_guiViewType = typeof(Editor).Assembly.GetType("UnityEditor.GUIView");
+
 		static PropertyInfo m_viewVisualTree = m_guiViewType.GetProperty("visualTree",
 			BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 		static FieldInfo m_imguiContainerOnGui = typeof(IMGUIContainer).GetField("m_OnGUIHandler",
@@ -23,7 +25,8 @@ namespace UnityToolbarExtender
 
 		static ToolbarCallback()
 		{
-			EditorApplication.update -= OnUpdate;
+
+            EditorApplication.update -= OnUpdate;
 			EditorApplication.update += OnUpdate;
 		}
 

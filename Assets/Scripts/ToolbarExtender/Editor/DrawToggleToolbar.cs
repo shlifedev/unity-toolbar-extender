@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UnityToolbarExtender.Examples
 {
 	[InitializeOnLoad]
-	public static class SceneViewFocuser
+	public static class DrawToggleToolbar
 	{
 		static bool m_enabled;
 
@@ -18,16 +18,18 @@ namespace UnityToolbarExtender.Examples
 			}
 		}
 
-		static SceneViewFocuser()
+		static DrawToggleToolbar()
 		{
 			m_enabled = EditorPrefs.GetBool("SceneViewFocuser", false);
 			EditorApplication.playModeStateChanged += OnPlayModeChanged;
 			EditorApplication.pauseStateChanged += OnPauseChanged;
 
-			ToolbarExtender.RightToolbarGUI.Add(OnToolbarGUI);
-		}
+            ToolbarExtender.LeftToolbarGUI.Add(OnToolbarGUI);
+            ToolbarExtender.RightToolbarGUI.Add(OnToolbarGUI);
 
-		static void OnPauseChanged(PauseState obj)
+        }
+
+        static void OnPauseChanged(PauseState obj)
 		{
 			if (Enabled && obj == PauseState.Unpaused)
 			{
@@ -44,17 +46,19 @@ namespace UnityToolbarExtender.Examples
 			}
 		}
 
-		static void OnToolbarGUI()
-		{
-			var tex = EditorGUIUtility.IconContent(@"UnityEditor.SceneView").image;
+        static void OnToolbarGUI()
+        {
+            var tex = EditorGUIUtility.IconContent(@"UnityEditor.SceneView").image;
 
-			GUI.changed = false;
+            GUI.changed = false;
 
-			GUILayout.Toggle(m_enabled, new GUIContent(null, tex, "Focus SceneView when entering play mode"), "Command");
-			if (GUI.changed)
-			{
-				Enabled = !Enabled;
-			}
-		}
-	}
+            GUILayout.Toggle(m_enabled, new GUIContent(null, tex, "Focus SceneView when entering play mode"), "Command");
+            if (GUI.changed)
+            {
+                Enabled = !Enabled;
+            }
+        }
+
+
+    }
 }

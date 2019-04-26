@@ -17,10 +17,23 @@ namespace UnityToolbarExtender
 
 		static ToolbarExtender()
 		{
-			Type toolbarType = typeof(Editor).Assembly.GetType("UnityEditor.Toolbar");
-			FieldInfo toolIcons = toolbarType.GetField("s_ShownToolIcons",
+            //Toolbar 어셈블리를 강제로 가져옴 (internal class Toolbar : GUIView)
+            Type toolbarType = typeof(Editor).Assembly.GetType("UnityEditor.Toolbar");
+            //toolIcons 필드를 강제로 가져옴 (private static GUIContent[] s_ShownToolIcons;)
+            FieldInfo toolIcons = toolbarType.GetField("s_ShownToolIcons",
 				BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-			m_toolCount = toolIcons != null ? ((Array) toolIcons.GetValue(null)).Length : 6;
+            
+            var arr =  ((Array) toolIcons.GetValue(null));
+            int mToolIconsCount = 0;
+            if (arr != null)
+            {
+                mToolIconsCount = arr.Length;
+            }
+            else
+            {
+                mToolIconsCount = 6;
+            }
+            m_toolCount = toolIcons != null ? mToolIconsCount : 6 ;
 
 			ToolbarCallback.OnToolbarGUI -= OnGUI;
 			ToolbarCallback.OnToolbarGUI += OnGUI;
@@ -28,21 +41,18 @@ namespace UnityToolbarExtender
 
 		static void OnGUI()
 		{
-			// Create two containers, left and right
-			// Screen is whole toolbar
-
 			if (m_commandStyle == null)
 			{
 				m_commandStyle = new GUIStyle("CommandLeft");
 			}
-
 			var screenWidth = EditorGUIUtility.currentViewWidth;
 
-			// Following calculations match code reflected from Toolbar.OldOnGUI()
-			float playButtonsPosition = (screenWidth - 100) / 2;
-
+			// 플레이버튼의 위치 (400은 플레이버튼 영역 rect가 차지하는 가로사이즈 같음)
+			float playButtonsPosition = (screenWidth - 400) / 2; 
 			Rect leftRect = new Rect(0, 0, screenWidth, Screen.height);
-			leftRect.xMin += 10; // Spacing left
+
+            ///// 이곳은 왼쪽 부분에 있는 유니티 기본 GUI들 사이즈를 계산해서 그릴 요소들을 밀어주는 곳인듯 함 /////
+            leftRect.xMin += 10; // Spacing left
 			leftRect.xMin += 32 * m_toolCount; // Tool buttons
 			leftRect.xMin += 20; // Spacing between tools and pivot
 			leftRect.xMin += 64 * 2; // Pivot buttons
@@ -52,6 +62,8 @@ namespace UnityToolbarExtender
 			rightRect.xMin = playButtonsPosition;
 			rightRect.xMin += m_commandStyle.fixedWidth * 3; // Play buttons
 			rightRect.xMax = screenWidth;
+
+            ///// 이곳은 오른쪽 부분에 있는 유니티 기본 GUI들 사이즈를 계산해서 그릴 요소들을 밀어주는 곳인듯 함 /////
 			rightRect.xMax -= 10; // Spacing right
 			rightRect.xMax -= 80; // Layout
 			rightRect.xMax -= 10; // Spacing between layout and layers
