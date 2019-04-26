@@ -1,7 +1,7 @@
 # unity-toolbar-extender(유니티 툴바 확장)
 https://github.com/marijnz/unity-toolbar-extender 에서 포크했습니다!
 
-유니티의 툴바 GUI의 네임스페이스 타입을 해킹해서 (간단하게 IL SPY등으로 UnityEditor.Toolbar의 소스코드를 확인 가능합니다)
+유니티의 툴바 GUI의 네임스페이스 타입을 킹해서 (간단하게 IL SPY등으로 UnityEditor.Toolbar의 소스코드를 확인 가능합니다)
 강제로 툴바 그래픽을 그려내는 라이브러리입니다. 원래는 정상적인 방법으로는 UnityEditor.Toolbar에 접근할수가 없는데
 개발자가 IL SPY 같은걸로 dll 뜯어서 리플렉션해서 강제로 gui 호출부분을 후킹했더라구요.
 
