@@ -1,4 +1,5 @@
-﻿
+﻿#if UNITY_EDITOR
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -60,7 +61,7 @@ namespace UnityToolbarExtender
             float playButtonsPosition = (screenWidth - 140) / 2;
             Rect leftRect = new Rect(0, 0, screenWidth, Screen.height);
 
-            ///// 이곳은 왼쪽 부분에 있는 유니티 기본 GUI들 사이즈를 계산해서 그릴 요소들을 밀어주는 곳인듯 함 /////
+            ///// 이곳은 왼쪽 부분에 있는 유니티 기본 GUI들 사이즈를 계산해서 그릴 요소들을 밀어주는 곳   /////
             leftRect.xMin += 10; // Spacing left
             leftRect.xMin += 32 * m_toolCount; // Tool buttons
             leftRect.xMin += 20; // Spacing between tools and pivot
@@ -71,6 +72,16 @@ namespace UnityToolbarExtender
             rightRect.xMin = playButtonsPosition;
             rightRect.xMin += m_commandStyle.fixedWidth * 3; // Play buttons
             rightRect.xMax = screenWidth;
+
+
+
+
+
+
+
+
+
+
 
             ///// 이곳은 오른쪽 부분에 있는 유니티 기본 GUI들 사이즈를 계산해서 그릴 요소들을 밀어주는 곳인듯 함 /////
             rightRect.xMax -= 10; // Spacing right
@@ -128,3 +139,4 @@ namespace UnityToolbarExtender
         }
     }
 }
+#endif
