@@ -1,8 +1,9 @@
 
  # Toolbar Extender.
  
- * Support Menu-Extending
+ * Support Toolbar Menu-Extending
  * Paging Menu.
  
  
- Based on https://github.com/marijnz/unity-toolbar-extender
+> License Based : https://github.com/marijnz/unity-toolbar-extender/blob/master/LICENSE
+ 
