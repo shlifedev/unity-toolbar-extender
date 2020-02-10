@@ -11,8 +11,9 @@
  Just Import Your Unity assets folder 
  
  # Versions 
- Working fine UNITY5 ~ UNITY 2019 Latest  
-> License Based : https://github.com/marijnz/unity-toolbar-extender/blob/master/LICENSE
+ Tested UNITY5 ~ UNITY 2019.2
+ maybe not work unity 2019.3 higher.
 
- # Working Now
- * svn update feature
+ thanks for https://github.com/marijnz/unity-toolbar-extender
+ 
+ 
